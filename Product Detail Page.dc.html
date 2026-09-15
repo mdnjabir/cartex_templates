@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; font-family: 'Manrope', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+  image-slot::part(ring) { display: none; }
+</style>
+</helmet>
+<div style="background:#ffffff;min-height:100vh">
+
+  <div style="background:#ffffff;border-bottom:1px solid #e5e7eb;padding:16px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:8px;font-weight:800;font-size:22px;color:#18181b;flex-shrink:0">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 3h4l2 12h10l2-8H7" stroke="#4338ca" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="9" cy="19" r="1.5" fill="#4338ca"></circle><circle cx="17" cy="19" r="1.5" fill="#4338ca"></circle></svg>
+      Cartex
+    </div>
+    <div style="flex:1 1 240px;min-width:160px;max-width:480px;background:#f7f7f8;border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;color:#9ca3af;font-size:14px">Search products…</div>
+    <div style="display:flex;align-items:center;gap:20px;color:#374151;font-size:14px;margin-left:auto">
+      <span style="display:flex;align-items:center;gap:6px;cursor:pointer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 3.5-6 8-6s8 2 8 6"></path></svg>
+        Account
+      </span>
+      <span style="display:flex;align-items:center;gap:6px;cursor:pointer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2"><path d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21 8H6"></path><circle cx="9" cy="21" r="1"></circle><circle cx="18" cy="21" r="1"></circle></svg>
+        Cart
+      </span>
+    </div>
+  </div>
+
+  <div style="max-width:1280px;margin:0 auto;padding:0 32px 96px">
+
+    <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#6b7280;margin:24px 0">
+      <span>Home</span><span style="color:#d1d5db">/</span><span>Electronics</span><span style="color:#d1d5db">/</span><span>Headphones</span><span style="color:#d1d5db">/</span><span style="color:#18181b;font-weight:500">Rockerz 550 Wireless Headphones</span>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start">
+
+      <div style="flex:1 1 380px;min-width:280px;max-width:520px">
+        <div style="position:relative;border-radius:16px;overflow:hidden;background:#f7f7f8;aspect-ratio:1/1">
+          <image-slot id="main-product-image" shape="rect" placeholder="Main product photo" src="uploads/pasted-1789446173567-0.png" style="width:100%;height:100%;transition:transform .5s ease" style-hover="transform:scale(1.08)"></image-slot>
+          <div style="position:absolute;top:16px;left:16px;background:#eef2ff;color:#4338ca;font-size:12px;font-weight:700;letter-spacing:.03em;padding:6px 12px;border-radius:100px;pointer-events:none">BESTSELLER</div>
+          <button style="position:absolute;top:16px;right:64px;width:40px;height:40px;border-radius:50%;background:#ffffff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.14)" style-hover="background:#eef2ff">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2"><circle cx="6" cy="12" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="18" cy="18" r="2.5"></circle><path d="M8.2 10.8l7.6-4.3M8.2 13.2l7.6 4.3"></path></svg>
+          </button>
+          <button onClick="{{ toggleWishlist }}" style="position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:#ffffff;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.14)">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="{{ wishlistFill }}" stroke="{{ wishlistStroke }}" stroke-width="2"><path d="M12 21s-7.5-4.6-10-9.3C.5 8.1 2.3 4.5 6 4.1c2-.2 3.7 1 4.7 2.6l1.3 2 1.3-2c1-1.6 2.7-2.8 4.7-2.6 3.7.4 5.5 4 4 7.6C19.5 16.4 12 21 12 21Z"></path></svg>
+          </button>
+        </div>
+        <div style="display:flex;gap:12px;margin-top:16px">
+          <sc-for list="{{ thumbs }}" as="t" hint-placeholder-count="5">
+            <image-slot id="{{ t.id }}" shape="rounded" radius="10" placeholder="{{ t.label }}" src="{{ t.src }}" style="{{ t.style }}"></image-slot>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="flex:1 1 340px;min-width:280px">
+        <div style="font-size:13px;font-weight:700;letter-spacing:.08em;color:#6b7280">BOAT</div>
+        <h1 style="font-size:34px;font-weight:800;color:#18181b;margin:6px 0 12px;line-height:1.15">Rockerz 550 Wireless Headphones</h1>
+
+        <a href="#reviews" style="display:flex;align-items:center;gap:8px;text-decoration:none;margin-bottom:18px;width:fit-content" style-hover="opacity:0.7">
+          <div style="position:relative;width:98px;height:18px;flex-shrink:0">
+            <div style="position:absolute;inset:0;width:92%;overflow:hidden;display:flex;gap:2px">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2l3.1 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8 5.6 21.4l1.5-7.1L1.7 9.4l7.2-.8z"></path></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2l3.1 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8 5.6 21.4l1.5-7.1L1.7 9.4l7.2-.8z"></path></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2l3.1 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8 5.6 21.4l1.5-7.1L1.7 9.4l7.2-.8z"></path></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2l3.1 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8 5.6 21.4l1.5-7.1L1.7 9.4l7.2-.8z"></path></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2l3.1 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8 5.6 21.4l1.5-7.1L1.7 9.4l7.2-.8z"></path></svg>
+            </div>
+          </div>
+          <span style="font-size:14px;font-weight:700;color:#18181b">4.6</span>
+          <span style="font-size:14px;color:#6b7280;text-decoration:underline">(238 reviews)</span>
+        </a>
+
+        <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:22px;flex-wrap:wrap">
+          <span style="font-size:30px;font-weight:800;color:#18181b">$129.99</span>
+          <span style="font-size:18px;color:#9ca3af;text-decoration:line-through">$159.99</span>
+          <span style="font-size:13px;font-weight:700;color:#b45309;background:#fef3e2;padding:4px 10px;border-radius:6px">Save 19%</span>
+        </div>
+
+        <div style="margin-bottom:20px">
+          <div style="font-size:14px;font-weight:600;color:#18181b;margin-bottom:10px">Color: <span style="font-weight:400;color:#6b7280">{{ selectedColorName }}</span></div>
+          <div style="display:flex;gap:12px">
+            <sc-for list="{{ colors }}" as="c" hint-placeholder-count="3">
+              <button onClick="{{ c.onClick }}" disabled="{{ c.disabled }}" title="{{ c.name }}" style="{{ c.style }}">
+                <sc-if value="{{ c.selected }}" hint-placeholder-val="{{ false }}">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)"><path d="M5 13l4 4L19 7"></path></svg>
+                </sc-if>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:{{ stockColor }};margin-bottom:22px">
+          <span style="width:8px;height:8px;border-radius:50%;background:{{ stockColor }};display:inline-block"></span>
+          {{ stockText }}
+        </div>
+
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:6px;flex-wrap:wrap">
+          <span style="font-size:14px;font-weight:600;color:#18181b">Quantity</span>
+          <div style="display:flex;align-items:center;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden">
+            <button onClick="{{ decQty }}" disabled="{{ qtyAtMin }}" style="width:36px;height:36px;border:none;background:#ffffff;font-size:18px;cursor:pointer;color:#18181b">−</button>
+            <div style="width:40px;text-align:center;font-size:15px;font-weight:600;color:#18181b">{{ quantity }}</div>
+            <button onClick="{{ incQty }}" disabled="{{ qtyAtMax }}" style="width:36px;height:36px;border:none;background:#ffffff;font-size:18px;cursor:pointer;color:#18181b">+</button>
+          </div>
+          <span style="font-size:13px;color:#6b7280">Max 5 per order</span>
+        </div>
+        <div style="font-size:13px;color:#b45309;margin-bottom:16px;min-height:16px">{{ maxQtyMessage }}</div>
+
+        <div style="display:flex;gap:12px;margin-bottom:8px;flex-wrap:wrap">
+          <button onClick="{{ addToCart }}" style="flex:1 1 200px;display:flex;align-items:center;justify-content:center;gap:8px;background:#4338ca;color:#ffffff;border:none;border-radius:10px;padding:14px 24px;font-size:16px;font-weight:700;cursor:pointer;transition:background .2s" style-hover="background:#3730a3">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M3 4h2l2.4 12.4a2 2 0 0 0 2 1.6h8.2a2 2 0 0 0 2-1.6L21 8H6"></path><circle cx="9" cy="21" r="1"></circle><circle cx="18" cy="21" r="1"></circle></svg>
+            Add to Cart
+          </button>
+          <button onClick="{{ buyNow }}" style="flex:1 1 160px;display:flex;align-items:center;justify-content:center;gap:8px;background:#ffffff;color:#4338ca;border:2px solid #4338ca;border-radius:10px;padding:12px 24px;font-size:16px;font-weight:700;cursor:pointer;transition:background .2s" style-hover="background:#eef2ff">
+            Buy Now
+          </button>
+        </div>
+        <div style="font-size:14px;font-weight:600;color:#15803d;min-height:20px;margin-bottom:14px;animation:{{ cartMsgAnim }}">{{ cartMsg }}</div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:20px;padding:16px 0;border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;margin-bottom:22px">
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#374151;flex:1 1 150px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2"><path d="M12 3l7 3v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6z"></path><path d="M9.5 12l2 2 3.5-3.5"></path></svg>
+            Secure payment
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#374151;flex:1 1 150px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2"><path d="M12 2l7 3v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V5z"></path><path d="M9.5 12l2 2 3.5-3.5"></path></svg>
+            Trusted brands
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#374151;flex:1 1 150px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4338ca" stroke-width="2"><path d="M4 4v5h5"></path><path d="M20 20v-5h-5"></path><path d="M5 9a7 7 0 0 1 12-3l3 3"></path><path d="M19 15a7 7 0 0 1-12 3l-3-3"></path></svg>
+            30-day returns
+          </div>
+        </div>
+
+        <div style="margin-bottom:22px">
+          <div style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#15803d;margin-bottom:10px">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2"><path d="M3 7h11v8H3z"></path><path d="M14 10h4l3 3v2h-7z"></path><circle cx="7" cy="17.5" r="1.5"></circle><circle cx="17" cy="17.5" r="1.5"></circle></svg>
+            Delivery on Sep 02, Tuesday to 400001
+          </div>
+          <div style="font-size:14px;font-weight:600;color:#18181b;margin-bottom:8px">Check for another pincode</div>
+          <div style="display:flex;gap:8px;max-width:340px">
+            <input value="{{ pincode }}" onChange="{{ onPincodeChange }}" placeholder="Enter pincode / ZIP" style="flex:1;border:1px solid #e5e7eb;border-radius:8px;padding:10px 12px;font-size:14px;color:#18181b;min-width:0"></input>
+            <button onClick="{{ checkPincode }}" style="background:#18181b;color:#ffffff;border:none;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:600;cursor:pointer;flex-shrink:0">Check</button>
+          </div>
+          <div style="font-size:13px;margin-top:8px;min-height:16px;color:{{ pincodeColor }}">{{ pincodeMsg }}</div>
+          <sc-if value="{{ pincodeConfirmed }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ changeAddress }}" style="margin-top:6px;background:none;border:none;padding:0;font-size:13px;font-weight:600;color:#4338ca;cursor:pointer;text-decoration:underline">Change address</button>
+          </sc-if>
+        </div>
+
+      </div>
+    </div>
+
+    <div style="margin-top:72px">
+      <div style="display:flex;gap:32px;border-bottom:1px solid #e5e7eb;flex-wrap:wrap">
+        <button onClick="{{ setTabDesc }}" style="{{ tabDescStyle }}">Description</button>
+        <button onClick="{{ setTabSpecs }}" style="{{ tabSpecsStyle }}">Specifications</button>
+        <button onClick="{{ setTabShip }}" style="{{ tabShipStyle }}">Shipping &amp; Returns</button>
+      </div>
+      <div style="padding:32px 0;color:#374151;font-size:15px;line-height:1.75;max-width:760px">
+        <sc-if value="{{ isDescActive }}" hint-placeholder-val="{{ true }}">
+          <p style="margin:0 0 14px">The Rockerz 550 pairs 40mm dynamic drivers tuned for boAt's signature sound with low-latency Beast™ Mode (40ms) for gaming and video sync.</p>
+          <p style="margin:0">Bluetooth v5.4 keeps the connection stable, the adaptive-fit headband adjusts to any head shape, and easy-access onboard controls keep every session effortless.</p>
+        </sc-if>
+        <sc-if value="{{ isSpecsActive }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);row-gap:12px">
+            <div style="color:#6b7280;font-weight:500">Driver size</div><div style="color:#18181b;font-weight:600">40mm dynamic</div>
+            <div style="color:#6b7280;font-weight:500">Battery life</div><div style="color:#18181b;font-weight:600">Up to 30 hours</div>
+            <div style="color:#6b7280;font-weight:500">Bluetooth</div><div style="color:#18181b;font-weight:600">v5.4</div>
+            <div style="color:#6b7280;font-weight:500">Weight</div><div style="color:#18181b;font-weight:600">254g</div>
+            <div style="color:#6b7280;font-weight:500">Charging</div><div style="color:#18181b;font-weight:600">USB-C</div>
+            <div style="color:#6b7280;font-weight:500">Warranty</div><div style="color:#18181b;font-weight:600">1-year limited</div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ isShipActive }}" hint-placeholder-val="{{ false }}">
+          <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:10px">
+            <li>Free standard shipping on orders over $50</li>
+            <li>Estimated delivery: 3–5 business days</li>
+            <li>30-day hassle-free returns, no questions asked</li>
+            <li>Prepaid return shipping label provided at no cost</li>
+          </ul>
+        </sc-if>
+      </div>
+    </div>
+
+    <div id="reviews" style="margin-top:64px">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:28px">
+        <h2 style="font-size:24px;font-weight:800;color:#18181b;margin:0">Customer Reviews</h2>
+        <button style="background:#ffffff;color:#18181b;border:1px solid #e5e7eb;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:600;cursor:pointer" style-hover="border-color:#4338ca;color:#4338ca">Write a review</button>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:48px;margin-bottom:40px;padding:24px;background:#f7f7f8;border-radius:14px">
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;flex:0 0 160px">
+          <div style="font-size:44px;font-weight:800;color:#18181b">4.6</div>
+          <div style="display:flex;gap:2px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2l3.1 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8 5.6 21.4l1.5-7.1L1.7 9.4l7.2-.8z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2l3.1 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8 5.6 21.4l1.5-7.1L1.7 9.4l7.2-.8z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2l3.1 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8 5.6 21.4l1.5-7.1L1.7 9.4l7.2-.8z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b"><path d="M12 2l3.1 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8 5.6 21.4l1.5-7.1L1.7 9.4l7.2-.8z"></path></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#f59e0b" style="clip-path:inset(0 8% 0 0)"><path d="M12 2l3.1 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8 5.6 21.4l1.5-7.1L1.7 9.4l7.2-.8z"></path></svg>
+          </div>
+          <div style="font-size:13px;color:#6b7280">Based on 238 reviews</div>
+        </div>
+        <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:8px;justify-content:center;min-width:240px">
+          <sc-for list="{{ ratingBreakdown }}" as="rb" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:10px;font-size:13px">
+              <span style="color:#374151;width:36px">{{ rb.star }} star</span>
+              <div style="flex:1;height:8px;background:#e5e7eb;border-radius:100px;overflow:hidden"><div style="height:100%;background:#f59e0b;border-radius:100px;width:{{ rb.pct }}%"></div></div>
+              <span style="color:#9ca3af;width:32px;text-align:right">{{ rb.pct }}%</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <sc-for list="{{ reviews }}" as="review" hint-placeholder-count="4">
+          <div style="border-bottom:1px solid #e5e7eb;padding-bottom:24px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap">
+              <span style="font-weight:700;color:#18181b;font-size:14px">{{ review.name }}</span>
+              <span style="font-size:12px;color:#15803d;background:#e9f7ef;padding:2px 8px;border-radius:100px;font-weight:600">Verified purchase</span>
+              <span style="font-size:13px;color:#9ca3af">{{ review.date }}</span>
+            </div>
+            <div style="display:flex;gap:2px;margin-bottom:8px">
+              <sc-for list="{{ review.starsArr }}" as="filled" hint-placeholder-count="5">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="{{ filled }}"><path d="M12 2l3.1 6.6 7.2.8-5.4 4.9 1.5 7.1L12 17.8 5.6 21.4l1.5-7.1L1.7 9.4l7.2-.8z"></path></svg>
+              </sc-for>
+            </div>
+            <div style="font-weight:700;color:#18181b;font-size:15px;margin-bottom:6px">{{ review.title }}</div>
+            <div style="color:#374151;font-size:14px;line-height:1.65">{{ review.body }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="margin-top:64px">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:16px">
+        <h2 style="font-size:24px;font-weight:800;color:#18181b;margin:0">Questions &amp; Answers</h2>
+        <button onClick="{{ toggleQA }}" style="background:#ffffff;color:#18181b;border:1px solid #e5e7eb;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:600;cursor:pointer" style-hover="border-color:#4338ca;color:#4338ca">{{ qaButtonLabel }}</button>
+      </div>
+      <sc-if value="{{ qaOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:16px">
+          <sc-for list="{{ qaItems }}" as="qa" hint-placeholder-count="3">
+            <div style="border:1px solid #e5e7eb;border-radius:12px;padding:18px 20px">
+              <div style="font-weight:700;color:#18181b;font-size:14px;margin-bottom:6px">Q: {{ qa.q }}</div>
+              <div style="color:#374151;font-size:14px;line-height:1.6">A: {{ qa.a }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <button style="background:#ffffff;color:#18181b;border:1px solid #e5e7eb;border-radius:8px;padding:10px 18px;font-size:14px;font-weight:600;cursor:pointer" style-hover="border-color:#4338ca;color:#4338ca">Show all questions</button>
+      </sc-if>
+    </div>
+
+    <div style="margin-top:64px">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:20px">
+        <h2 style="font-size:24px;font-weight:800;color:#18181b;margin:0">You may also like</h2>
+        <div style="display:flex;gap:8px">
+          <button onClick="{{ scrollLeft }}" style="width:36px;height:36px;border-radius:50%;border:1px solid #e5e7eb;background:#ffffff;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="border-color:#4338ca">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#18181b" stroke-width="2"><path d="M15 6l-6 6 6 6"></path></svg>
+          </button>
+          <button onClick="{{ scrollRight }}" style="width:36px;height:36px;border-radius:50%;border:1px solid #e5e7eb;background:#ffffff;display:flex;align-items:center;justify-content:center;cursor:pointer" style-hover="border-color:#4338ca">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#18181b" stroke-width="2"><path d="M9 6l6 6-6 6"></path></svg>
+          </button>
+        </div>
+      </div>
+      <div ref="{{ carouselRef }}" style="display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px">
+        <sc-for list="{{ alsoLike }}" as="p" hint-placeholder-count="6">
+          <div style="flex:0 0 220px;scroll-snap-align:start;cursor:pointer">
+            <div style="border-radius:12px;overflow:hidden;background:#f7f7f8;margin-bottom:10px">
+              <image-slot id="{{ p.id }}" shape="rect" placeholder="{{ p.name }}" src="{{ p.src }}" style="width:220px;height:220px"></image-slot>
+            </div>
+            <div style="font-size:14px;font-weight:600;color:#18181b;margin-bottom:4px">{{ p.name }}</div>
+            <div style="font-size:14px;font-weight:700;color:#18181b">{{ p.price }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="border-top:1px solid #e5e7eb;background:#f7f7f8;padding:24px 32px;text-align:center;font-size:13px;color:#9ca3af">
+    © 2026 Cartex. All rights reserved. · Help · Returns · Privacy
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    wishlisted: false,
+    selectedColor: 'black',
+    quantity: 1,
+    activeTab: 'description',
+    pincode: '',
+    pincodeMsg: '',
+    pincodeOk: null,
+    cartMsg: '',
+    qaOpen: true,
+  };
+
+  carouselRef = React.createRef();
+  cartTimer = null;
+
+  colorDefs() {
+    return [
+      { id: 'black', name: 'Black', hex: '#1f2530', stock: 'in' },
+      { id: 'slate', name: 'Slate Blue', hex: '#3f4f68', stock: 'low' },
+      { id: 'sand', name: 'Sand', hex: '#d8c7a8', stock: 'out' },
+    ];
+  }
+
+  toggleWishlist = () => this.setState(s => ({ wishlisted: !s.wishlisted }));
+
+  selectColor(id) {
+    const def = this.colorDefs().find(c => c.id === id);
+    if (!def || def.stock === 'out') return;
+    this.setState({ selectedColor: id });
+  }
+
+  incQty = () => this.setState(s => ({ quantity: Math.min(5, s.quantity + 1) }));
+  decQty = () => this.setState(s => ({ quantity: Math.max(1, s.quantity - 1) }));
+
+  setTab(tab) { this.setState({ activeTab: tab }); }
+
+  onPincodeChange = (e) => this.setState({ pincode: e.target.value, pincodeMsg: '', pincodeOk: null });
+
+  checkPincode = () => {
+    const val = this.state.pincode.trim();
+    if (/^\d{5,6}$/.test(val)) {
+      const day = new Date(2026, 8, 18).toLocaleDateString('en-US', { weekday: 'long' });
+      this.setState({ pincodeOk: true, pincodeMsg: `Delivery available. Delivery on ${day}, Sep 18.` });
+    } else {
+      this.setState({ pincodeOk: false, pincodeMsg: 'Enter a valid 5–6 digit pincode.' });
+    }
+  };
+
+  changeAddress = () => this.setState({ pincode: '', pincodeMsg: '', pincodeOk: null });
+
+  flashCart(msg) {
+    clearTimeout(this.cartTimer);
+    this.setState({ cartMsg: msg });
+    this.cartTimer = setTimeout(() => this.setState({ cartMsg: '' }), 2800);
+  }
+
+  addToCart = () => this.flashCart(`✓ Added ${this.state.quantity} × Rockerz 550 Headphones to cart`);
+  buyNow = () => this.flashCart('Redirecting to secure checkout…');
+
+  toggleQA = () => this.setState(s => ({ qaOpen: !s.qaOpen }));
+
+  scrollCarousel(dir) {
+    const el = this.carouselRef.current;
+    if (el) el.scrollBy({ left: dir * 320, behavior: 'smooth' });
+  }
+
+  renderVals() {
+    const s = this.state;
+
+    const colors = this.colorDefs().map(c => {
+      const selected = c.id === s.selectedColor;
+      const disabled = c.stock === 'out';
+      const border = selected ? '3px solid #ffffff' : '2px solid #e5e7eb';
+      const boxShadow = selected ? '0 0 0 2px #ffffff, 0 0 0 4px #4338ca' : 'none';
+      return {
+        id: c.id,
+        name: c.name,
+        selected,
+        disabled,
+        onClick: disabled ? null : this.selectColor.bind(this, c.id),
+        style: `position:relative;width:36px;height:36px;border-radius:50%;background:${c.hex};border:${border};box-shadow:${boxShadow};cursor:${disabled ? 'not-allowed' : 'pointer'};opacity:${disabled ? 0.4 : 1};padding:0`,
+      };
+    });
+
+    const selectedDef = this.colorDefs().find(c => c.id === s.selectedColor);
+    const stockMap = {
+      in: { text: 'In Stock', color: '#15803d' },
+      low: { text: 'Only 3 left in stock', color: '#b45309' },
+      out: { text: 'Out of Stock', color: '#dc2626' },
+    };
+    const stockInfo = stockMap[selectedDef.stock];
+
+    const thumbSrcs = [
+      { src: 'uploads/pasted-1789446173567-0.png', label: 'Hero angle' },
+      { src: 'uploads/pasted-1789446184027-0.png', label: 'Beast Mode 40ms latency' },
+      { src: 'uploads/pasted-1789446189776-0.png', label: 'Adaptive fit' },
+      { src: 'uploads/pasted-1789446196424-0.png', label: 'Bluetooth v5.4' },
+      { src: 'uploads/pasted-1789446208693-0.png', label: '40mm drivers' },
+    ];
+    const thumbs = thumbSrcs.map((t, i) => ({
+      id: `thumb-${i}`,
+      label: t.label,
+      src: t.src,
+      style: `width:76px;height:76px;flex-shrink:0;border-radius:10px;border:2px solid ${i === 0 ? '#4338ca' : '#e5e7eb'}`,
+    }));
+
+    const ratingBreakdown = [
+      { star: 5, pct: 72 },
+      { star: 4, pct: 18 },
+      { star: 3, pct: 6 },
+      { star: 2, pct: 2 },
+      { star: 1, pct: 2 },
+    ];
+
+    const reviews = [
+      { name: 'Priya M.', date: 'Sep 2, 2026', rating: 5, title: 'Exactly what I needed', body: 'The sound quality is incredible for the price, and the battery life easily lasts my whole work week on one charge.' },
+      { name: 'Daniel K.', date: 'Aug 21, 2026', rating: 4, title: 'Great fit, minor gripe', body: 'Super comfortable for long sessions. My only complaint is the carrying case feels a little flimsy for travel.' },
+      { name: 'Amara O.', date: 'Aug 10, 2026', rating: 5, title: 'Worth every penny', body: "Switched from a pair that cost twice as much and honestly can't tell the difference in call quality." },
+      { name: 'Jonas R.', date: 'Jul 29, 2026', rating: 3, title: 'Good but not perfect', body: 'Bluetooth pairing with my laptop drops occasionally, but the audio quality when connected stays excellent.' },
+    ].map(r => ({ ...r, starsArr: Array.from({ length: r.rating }, () => '#f59e0b') }));
+
+    const alsoLikeImgs = ['uploads/pasted-1789446302919-0.png', 'uploads/pasted-1789446309984-0.png', 'uploads/pasted-1789446317836-0.png'];
+    const alsoLike = [
+      { id: 'al-1', name: 'Aria Mini Earbuds', price: '$79.99' },
+      { id: 'al-2', name: 'Bass Line Speaker', price: '$89.99' },
+      { id: 'al-3', name: 'boAt Charging Dock', price: '$34.99' },
+      { id: 'al-4', name: 'Travel Case Pro', price: '$24.99' },
+      { id: 'al-5', name: 'Rockerz 550 Lite', price: '$99.99' },
+      { id: 'al-6', name: 'Studio Headband Cushion', price: '$14.99' },
+    ].map((p, i) => ({ ...p, src: alsoLikeImgs[i % alsoLikeImgs.length] }));
+
+    const tabStyle = (key) => {
+      const active = s.activeTab === key;
+      return `padding:14px 2px;background:none;border:none;border-bottom:2px solid ${active ? '#4338ca' : 'transparent'};color:${active ? '#18181b' : '#6b7280'};font-size:15px;font-weight:${active ? 700 : 600};cursor:pointer;margin-bottom:-1px`;
+    };
+
+    return {
+      wishlistFill: s.wishlisted ? '#dc2626' : 'none',
+      wishlistStroke: s.wishlisted ? '#dc2626' : '#6b7280',
+      toggleWishlist: this.toggleWishlist,
+      colors,
+      selectedColorName: selectedDef.name,
+      stockText: stockInfo.text,
+      stockColor: stockInfo.color,
+      thumbs,
+      quantity: s.quantity,
+      qtyAtMin: s.quantity <= 1,
+      qtyAtMax: s.quantity >= 5,
+      maxQtyMessage: s.quantity >= 5 ? "You've reached the maximum quantity (5) for this item." : '',
+      incQty: this.incQty,
+      decQty: this.decQty,
+      addToCart: this.addToCart,
+      buyNow: this.buyNow,
+      cartMsg: s.cartMsg,
+      cartMsgAnim: s.cartMsg ? 'fadeIn 0.25s ease' : 'none',
+      pincode: s.pincode,
+      onPincodeChange: this.onPincodeChange,
+      checkPincode: this.checkPincode,
+      pincodeMsg: s.pincodeMsg,
+      pincodeColor: s.pincodeOk === false ? '#dc2626' : '#15803d',
+      pincodeConfirmed: s.pincodeOk === true,
+      changeAddress: this.changeAddress,
+      activeTab: s.activeTab,
+      isDescActive: s.activeTab === 'description',
+      isSpecsActive: s.activeTab === 'specs',
+      isShipActive: s.activeTab === 'shipping',
+      setTabDesc: this.setTab.bind(this, 'description'),
+      setTabSpecs: this.setTab.bind(this, 'specs'),
+      setTabShip: this.setTab.bind(this, 'shipping'),
+      tabDescStyle: tabStyle('description'),
+      tabSpecsStyle: tabStyle('specs'),
+      tabShipStyle: tabStyle('shipping'),
+      ratingBreakdown,
+      reviews,
+      qaItems: [
+        { q: 'Does this support multipoint pairing with two devices at once?', a: 'Yes, the Rockerz 550 can stay connected to two Bluetooth devices simultaneously and switch between them automatically.' },
+        { q: 'Is Beast™ Mode always on, or do I need to enable it?', a: "Beast™ Mode is toggled on demand — triple-tap the right earcup to switch into 40ms low-latency mode for gaming or video." },
+        { q: 'Can I use it wired if the battery runs out?', a: 'There\u2019s no aux input on this model, so playback requires a charged battery and an active Bluetooth connection.' },
+      ],
+      qaOpen: s.qaOpen,
+      toggleQA: this.toggleQA,
+      qaButtonLabel: s.qaOpen ? 'Hide Q&A' : 'Show Q&A',
+      alsoLike,
+      carouselRef: this.carouselRef,
+      scrollLeft: () => this.scrollCarousel(-1),
+      scrollRight: () => this.scrollCarousel(1),
+    };
+  }
+}
+</script>
+</body>
+</html>
